@@ -1,5 +1,7 @@
 package com.trybe.acc.java.sistemadevotacao;
 
-public class PessoaEleitora {
+import java.util.ArrayList;
 
+public class PessoaEleitora {
+  ArrayList<String> pessoasEleitoras = new ArrayList<String>();
 }
