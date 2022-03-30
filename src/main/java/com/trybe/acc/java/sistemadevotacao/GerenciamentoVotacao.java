@@ -8,16 +8,23 @@ public class GerenciamentoVotacao {
   ArrayList<String> cpfComputado = new ArrayList<String>();
   int totalVotos;
 
+  public GerenciamentoVotacao() {}
+
   /**
    * Método para cadastro da Pessoa Candidata.
    * 
    */
   public void cadastrarPessoaCandidata(String nome, int numero) {
-    // PessoaCandidata pessoaCandidata = new PessoaCandidata(nome, numero);
+    Boolean numeroJaCadastrado = false;
     for (PessoaCandidata pessoaCandidata : pessoasCandidatas) {
       if (pessoaCandidata.getNumero() == numero) {
         System.out.println("Número pessoa candidata já utilizado!");
+        numeroJaCadastrado = true;
       }
+    }
+    if (numeroJaCadastrado == false) {
+      PessoaCandidata pessoaCandidata = new PessoaCandidata(nome, numero);
+      pessoasCandidatas.add(pessoaCandidata);
     }
   }
 
@@ -31,24 +38,55 @@ public class GerenciamentoVotacao {
         System.out.println("Pessoa eleitora já cadastrada!");
       }
     }
+    PessoaEleitora pessoaEleitora = new PessoaEleitora(nome, cpf);
+    pessoasEleitoras.add(pessoaEleitora);
   }
 
-  // public void votar (String cpf, int numeroPessoaCandidata) {
-  // if (cpf esta no array cpfComputado) {
-  // System.out.println("Pessoa eleitora já votou!");
-  // }
-  // }
-  //
-  // public void mostrarResultado () {
-  // if (ja existe voto computado?) {
-  // return "É preciso ter pelo menos um voto para mostrar o resultado.";
-  // }
-  // }
-  //
-  // private double calcularPorcentagemVotos (int indice) {
-  // if (ja existe voto computado?) {
-  // return "É preciso ter pelo menos um voto para mostrar o resultado.";
-  // }
-  // }
+  /**
+   * Método para votar.
+   * 
+   */
+  public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
+    Boolean cpfJaComputou = cpfComputado.contains(cpfPessoaEleitora);
+    if (cpfJaComputou == true) {
+      System.out.println("Pessoa eleitora já votou!");
+    } else {
+      for (PessoaCandidata pessoaCandidata : pessoasCandidatas) {
+        if (pessoaCandidata.getNumero() == (numeroPessoaCandidata)) {
+          pessoaCandidata.receberVoto();
+        }
+      }
+      cpfComputado.add(cpfPessoaEleitora);
+      totalVotos += 1;
+    }
+  }
+
+  /**
+   * Método para mostrar resultado.
+   * 
+   */
+  public void mostrarResultado() {
+    String resultado = "";
+    if (totalVotos <= 0) {
+      System.out.println("É preciso ter pelo menos um voto para mostrar o resultado.");
+    } else {
+      for (PessoaCandidata pessoaCandidata : pessoasCandidatas) {
+        resultado += "Nome: " + pessoaCandidata.getNome() + " - " + pessoaCandidata.getVotos()
+            + " votos ( " + calcularPorcentagemVotos(pessoasCandidatas.indexOf(pessoaCandidata))
+            + " )" + "\n";
+      }
+    }
+    System.out.println(resultado + "\n" + "Total de votos: " + totalVotos);
+  }
+
+  /**
+   * Método para calcular porcentagem.
+   * 
+   */
+  private double calcularPorcentagemVotos(int indice) {
+    int votos = this.pessoasCandidatas.get(indice).getVotos();
+    double resultado = (votos * 100.0) / this.totalVotos;
+    return resultado;
+  }
 
 }

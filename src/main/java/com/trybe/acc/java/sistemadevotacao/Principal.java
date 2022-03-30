@@ -74,12 +74,17 @@ public class Principal {
         System.out.println("Entre com o número da pessoa candidata:");
         String numeroEntrada = scanner.next();
         int numeroCandidata = Integer.parseInt(numeroEntrada);
-        return;
-        // gerenciamentoVotacao.votar
+
+        gerenciamentoVotacao.votar(cpfEleitora, numeroCandidata);
+
       } else if (choice == 2) {
-        // mostrar resultado;
+        gerenciamentoVotacao.mostrarResultado();
+
+      } else if (choice == 3) {
+        gerenciamentoVotacao.mostrarResultado();
         break;
       }
+
     } while (choice == 1);
     scanner.close();
 
