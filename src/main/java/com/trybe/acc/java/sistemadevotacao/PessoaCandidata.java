@@ -1,18 +1,17 @@
 package com.trybe.acc.java.sistemadevotacao;
 
-import java.util.ArrayList;
-
 public class PessoaCandidata extends Pessoa {
   private int numero;
   private int votos;
-  ArrayList<String> pessoasCandidatas = new ArrayList<String>();
 
+  /**
+   * Construtor para a Pessoa Candidata.
+   * 
+   */
   public PessoaCandidata(String nome, int numero) {
     super(nome);
-    votos = 0;
+    this.votos = 0;
     this.numero = numero;
-    super.nome = nome;
-    // TODO Auto-generated constructor stub
   }
 
   public int getNumero() {
@@ -31,18 +30,7 @@ public class PessoaCandidata extends Pessoa {
     this.votos = votos;
   }
 
-  @Override
-  public String getNome() {
-    // TODO Auto-generated method stub
-    return null;
+  public void receberVoto(int votos) {
+    votos += 1;
   }
-
-  @Override
-  public void setNome(String nome) {
-    // TODO Auto-generated method stub
-
-  }
-
-
-
 }

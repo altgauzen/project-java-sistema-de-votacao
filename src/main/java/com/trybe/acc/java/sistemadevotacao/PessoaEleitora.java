@@ -1,7 +1,19 @@
 package com.trybe.acc.java.sistemadevotacao;
 
-import java.util.ArrayList;
+public class PessoaEleitora extends Pessoa {
+  private String cpf;
 
-public class PessoaEleitora {
-  ArrayList<String> pessoasEleitoras = new ArrayList<String>();
+  public PessoaEleitora(String nome, String cpf) {
+    super(nome);
+    this.cpf = cpf;
+  }
+
+  public String getCpf() {
+    return cpf;
+  }
+
+  public void setCpf(String cpf) {
+    this.cpf = cpf;
+  }
+
 }
